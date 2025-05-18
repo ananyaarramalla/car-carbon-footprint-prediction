@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='history.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Carbon Footprint Evaluator</h1>
+        <p>Drive Smart. Emit Less. Live Green.</p>
+    </header>
+
+    <main>
+        <div class="history-section">
+            <h2>Prediction History</h2>
+            <div class="button-group">
+                <button onclick="clearHistory()" class="clear-btn">🗑️ Clear History</button>
+                <button onclick="window.history.back()" class="nav-btn">🏠 Back to Dashboard</button>
+                <a href="/" class="nav-btn">🔙 Back to Home</a>
+            </div>
+
+            <table id="historyTable">
+                <thead>
+                    <tr>
+                        <th>Features</th>
+                        <th>Prediction</th>
+                        <th>Timestamp</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>        
+                <tbody></tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        © 2025 Carbon Evaluator | All rights reserved.
+    </footer>
+
+    <script>
+        const token = localStorage.getItem("access_token");
+
+        function loadHistory() {
+            fetch("/ml/history", {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                const tbody = document.querySelector("#historyTable tbody");
+                tbody.innerHTML = "";
+
+                data.forEach(entry => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td>${entry.features}</td>
+                        <td>${entry.prediction}</td>
+                        <td>${entry.timestamp}</td>
+                        <td>
+                            <button onclick="deleteEntry(${entry.id})" class="delete-btn">🗑️</button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            })
+            .catch(err => {
+                alert("Failed to load history. Please login again.");
+                console.error("Error fetching history:", err);
+            });
+        }
+
+        function clearHistory() {
+            if (!confirm("Are you sure you want to delete your entire history?")) return;
+
+            fetch("/ml/delete-history", {
+                method: "DELETE",
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                alert(data.message || "History deleted.");
+                document.querySelector("#historyTable tbody").innerHTML = "";
+            })
+            .catch(err => {
+                alert("Error deleting history.");
+                console.error(err);
+            });
+        }
+
+        function deleteEntry(entryId) {
+            if (!confirm("Delete this entry?")) return;
+
+            fetch(`/ml/delete-entry/${entryId}`, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                alert(data.message);
+                loadHistory();
+            })
+            .catch(err => {
+                alert("Error deleting entry.");
+                console.error(err);
+            });
+        }
+
+        loadHistory();
+    </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Carbon Footprint Evaluator</h1>
+        <p>Drive Smart. Emit Less. Live Green.</p>
+    </header>
+
+    <main>
+        <div class="welcome-section">
+            <h2>Welcome, {{ user.name }}!</h2>
+            <p>“The Earth is what we all have in common.” — Wendell Berry</p>
+            <a href="{{ url_for('home') }}" class="back-btn">← Back to Home</a>
+        </div>
+        <div class="card-container">
+            <div class="card">
+                <div class="icon">🔍</div>
+                <h3>Make a Prediction</h3>
+                <p>Estimate the carbon footprint of your activities and discover ways to reduce it.</p>
+                <a href="/ml/predict-form" class="btn">Start Prediction</a>
+            </div>
+    
+            <div class="card">
+                <div class="icon">⚖️</div>
+                <h3>Compare Scenarios</h3>
+                <p>Evaluate two different lifestyles or decisions side by side for their environmental impact.</p>
+                <a href="/ml/compare-form" class="btn">Compare Now</a>
+            </div>
+    
+            <div class="card">
+                <div class="icon">📜</div>
+                <h3>View History</h3>
+                <p>See your past predictions and scenario comparisons at a glance.</p>
+                <a href="/ml/history-view" class="btn">View History</a>
+            </div>
+        </div>
+    </main>
+    
+
+    <footer>
+        © 2025 Carbon Evaluator | All rights reserved.
+    </footer>
+
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            const token = "{{ token | safe }}";
+
+            if (token) {
+                localStorage.setItem("access_token", token);
+                console.log("Token stored:", token);
+            } else {
+                console.error("No token received.");
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #e0f7fa, #c8e6c9);
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+header {
+    background-color: #004d40;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 5px;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 40px 20px;
+}
+
+
+.history-section h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #004d40;
+}
+  
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.nav-btn {
+    background-color: #00796b;
+    color: white;
+    padding: 10px 18px;
+    margin: 20px 0;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.nav-btn:hover {
+    background-color: #004d40;
+}
+
+footer {
+    background-color: #eeeeee;
+    text-align: center;
+    padding: 15px 10px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.history-section {
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.clear-btn {
+    background-color: #c62828;
+    color: white;
+    padding: 10px 18px;
+    margin: 20px 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.clear-btn:hover {
+    background-color: #8e0000;
+}
+
+.delete-btn {
+    background-color: #e53935;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background-color: #b71c1c;
+}
+
+table {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 14px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+th {
+    background-color: #00695c;
+    color: white;
+    font-size: 16px;
+}
+
+td {
+    font-size: 15px;
+    background-color: #ffffff;
+}
+
+tr:nth-child(even) td {
+    background-color: #f1f1f1;
+}

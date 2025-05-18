@@ -1,0 +1,117 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #e0f7fa, #c8e6c9);
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+header {
+    background-color: #004d40;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 5px;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 40px 20px;
+}
+
+.container {
+    background: linear-gradient(145deg, #ffffff, #f1f8e9);
+    padding: 50px 40px;
+    border-radius: 20px;
+    border: 1.5px solid #c8e6c9;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    max-width: 550px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.container:hover {
+    transform: scale(1.01);
+}
+
+.container h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #004d40;
+}
+
+.container p {
+    font-size: 1.05rem;
+    margin-bottom: 35px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.container .eco-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #00796b;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+  
+.btn:hover {
+    background-color: #004d40;
+}
+
+.p {
+    margin-top: 20px;
+    font-size: 0.95rem;
+}
+
+a {
+    color: #004d40;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    background-color: #eeeeee;
+    text-align: center;
+    padding: 15px 10px;
+    font-size: 0.9rem;
+    color: #555;
+}

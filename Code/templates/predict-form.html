@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Predict</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='predict.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Carbon Footprint Evaluator</h1>
+        <p>Drive Smart. Emit Less. Live Green.</p>
+    </header>
+
+    <main>
+        <div class="form-section">
+            <h2>Enter Vehicle Features</h2>
+            <form id="predictForm">
+                <div class="form-group">
+                    <label for="engine_size">Engine Size (L)</label>
+                    <input type="number" name="Engine Size(L)" step="any" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cylinders">No. of Cylinders</label>
+                    <input type="number" name="Cylinders" step="any" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fuel_city">Fuel Consumption City (L/100 km)</label>
+                    <input type="number" name="Fuel Consumption City (L/100 km)" step="any" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fuel_hwy">Fuel Consumption Hwy (L/100 km)</label>
+                    <input type="number" name="Fuel Consumption Hwy (L/100 km)" step="any" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="is_hybrid">Is Hybrid?</label>
+                    <select name="Is_Hybrid" required>
+                        <option value="">-- Select --</option>
+                        <option value="0">0 - Not Hybrid</option>
+                        <option value="1">1 - Hybrid</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="vehicle_class">Vehicle Class</label>
+                    <select name="Vehicle Class" required>
+                        <option value="">-- Select Vehicle Class --</option>
+
+                        <optgroup label="Cars">
+                            <option value="MINICOMPACT">Minicompact</option>
+                            <option value="SUBCOMPACT">Subcompact</option>
+                            <option value="COMPACT">Compact</option>
+                            <option value="MID-SIZE">Mid-size</option>
+                            <option value="FULL-SIZE">Full-size</option>
+                            <option value="TWO-SEATER">Two-seater</option>
+                        </optgroup>
+
+                        <optgroup label="SUVs">
+                            <option value="SUV - SMALL">SUV - Small</option>
+                            <option value="SUV - STANDARD">SUV - Standard</option>
+                        </optgroup>
+
+                        <optgroup label="Trucks">
+                            <option value="PICKUP TRUCK - SMALL">Pickup Truck - Small</option>
+                            <option value="PICKUP TRUCK - STANDARD">Pickup Truck - Standard</option>
+                        </optgroup>
+
+                        <optgroup label="Vans & Wagons">
+                            <option value="MINIVAN">Minivan</option>
+                            <option value="VAN - PASSENGER">Van - Passenger</option>
+                            <option value="VAN - CARGO">Van - Cargo</option>
+                            <option value="STATION WAGON - SMALL">Station Wagon - Small</option>
+                            <option value="STATION WAGON - MID-SIZE">Station Wagon - Mid-size</option>
+                        </optgroup>
+
+                        <optgroup label="Others">
+                            <option value="SPECIAL PURPOSE VEHICLE">Special Purpose Vehicle</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="fuel_type">Fuel Type</label>
+                    <select name="Fuel Type" required>
+                        <option value="">-- Select Fuel Type --</option>
+                        <option value="X">Regular Gasoline</option>
+                        <option value="Z">Premium Gasoline</option>
+                        <option value="D">Diesel</option>
+                        <option value="E">Ethanol</option>
+                        <option value="N">Natural Gas</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="transmission">Transmission</label>
+                    <select name="Transmission" required>
+                        <option value="">-- Select Transmission --</option>
+
+                        <optgroup label="Automatic (A)">
+                            <option value="A4">A4 - Auto 4-spd</option>
+                            <option value="A5">A5 - Auto 5-spd</option>
+                            <option value="A6">A6 - Auto 6-spd</option>
+                            <option value="A7">A7 - Auto 7-spd</option>
+                            <option value="A8">A8 - Auto 8-spd</option>
+                            <option value="A9">A9 - Auto 9-spd</option>
+                            <option value="A10">A10 - Auto 10-spd</option>
+                        </optgroup>
+
+                        <optgroup label="Automatic Select Shift (AS)">
+                            <option value="AS4">AS4 - Auto Select 4-spd</option>
+                            <option value="AS5">AS5 - Auto Select 5-spd</option>
+                            <option value="AS6">AS6 - Auto Select 6-spd</option>
+                            <option value="AS7">AS7 - Auto Select 7-spd</option>
+                            <option value="AS8">AS8 - Auto Select 8-spd</option>
+                            <option value="AS9">AS9 - Auto Select 9-spd</option>
+                            <option value="AS10">AS10 - Auto Select 10-spd</option>
+                        </optgroup>
+
+                        <optgroup label="Manual (M)">
+                            <option value="M5">M5 - Manual 5-spd</option>
+                            <option value="M6">M6 - Manual 6-spd</option>
+                            <option value="M7">M7 - Manual 7-spd</option>
+                        </optgroup>
+
+                        <optgroup label="Automated Manual (AM)">
+                            <option value="AM5">AM5 - Automated Manual 5-spd</option>
+                            <option value="AM6">AM6 - Automated Manual 6-spd</option>
+                            <option value="AM7">AM7 - Automated Manual 7-spd</option>
+                            <option value="AM8">AM8 - Automated Manual 8-spd</option>
+                            <option value="AM9">AM9 - Automated Manual 9-spd</option>
+                        </optgroup>
+
+                        <optgroup label="Continuously Variable (AV)">
+                            <option value="AV">AV - CVT</option>
+                            <option value="AV6">AV6 - CVT 6-spd</option>
+                            <option value="AV7">AV7 - CVT 7-spd</option>
+                            <option value="AV8">AV8 - CVT 8-spd</option>
+                            <option value="AV10">AV10 - CVT 10-spd</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+
+                                <button type="submit" class="btn">Predict</button>
+            <h3 id="result"></h3>
+
+            <div class="nav-buttons">
+                <a onclick="history.back()" class="nav-btn">🔙 Back</a>
+            </div>
+            </form>
+        </div>
+    </main>
+    <footer>
+        © 2025 Carbon Evaluator | All rights reserved.
+    </footer>
+
+    <script>
+        document.getElementById("predictForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+
+            const form = e.target;
+
+            const featureObject = {
+                "Engine Size(L)": parseFloat(form["Engine Size(L)"].value),
+                "Cylinders": parseInt(form["Cylinders"].value),
+                "Fuel Consumption City (L/100 km)": parseFloat(form["Fuel Consumption City (L/100 km)"].value),
+                "Fuel Consumption Hwy (L/100 km)": parseFloat(form["Fuel Consumption Hwy (L/100 km)"].value),
+                "Is_Hybrid": parseInt(form["Is_Hybrid"].value),
+                "Vehicle Class": form["Vehicle Class"].value,
+                "Fuel Type": form["Fuel Type"].value,
+                "Transmission": form["Transmission"].value
+            };
+
+            const token = localStorage.getItem("access_token");
+
+            const response = await fetch("/ml/predict", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(featureObject)
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                document.getElementById("result").innerText = "Prediction: " + data.prediction;
+            } else {
+                document.getElementById("result").innerText = "Error: " + (data.error || "Something went wrong.");
+            }
+        });
+    </script>
+
+
+
+</body>
+</html>

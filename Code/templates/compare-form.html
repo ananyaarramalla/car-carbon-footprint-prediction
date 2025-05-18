@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Compare Predictions</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='compare.css') }}">
+</head>
+<body>
+  <header>
+    <h1>Carbon Footprint Evaluator</h1>
+    <p>Drive Smart. Emit Less. Live Green.</p>
+  </header>
+
+  <main class="form-section">
+    <h2>Compare Two Scenarios</h2>
+
+    <form id="compareForm" class="compare-form">
+      <div class="scenario-container">
+        <!-- Scenario 1 -->
+        <div class="scenario">
+          <h3>Scenario 1</h3>
+          <label>Engine Size (L): <input type="number" name="s1_feature1" step="any" required></label>
+          <label>No. of Cylinders: <input type="number" name="s1_feature2" step="any" required></label>
+          <label>Fuel Consumption City (L/100 km): <input type="number" name="s1_feature3" step="any" required></label>
+          <label>Fuel Consumption Hwy (L/100 km): <input type="number" name="s1_feature4" step="any" required></label>
+          <label>Is Hybrid:
+            <select name="s1_feature5" required class="styled-select">
+              <option value="">-- Select --</option>
+              <option value="0">0 - Not Hybrid</option>
+              <option value="1">1 - Hybrid</option>
+            </select>
+          </label>
+          <label>Vehicle Class:
+            <select name="s1_feature6" required class="styled-select">
+              <option value="">-- Select Vehicle Class --</option>
+              <optgroup label="Cars">
+                <option value="MINICOMPACT">Minicompact</option>
+                <option value="SUBCOMPACT">Subcompact</option>
+                <option value="COMPACT">Compact</option>
+                <option value="MID-SIZE">Mid-size</option>
+                <option value="FULL-SIZE">Full-size</option>
+                <option value="TWO-SEATER">Two-seater</option>
+              </optgroup>
+              <optgroup label="SUVs">
+                <option value="SUV - SMALL">SUV - Small</option>
+                <option value="SUV - STANDARD">SUV - Standard</option>
+              </optgroup>
+              <optgroup label="Trucks">
+                <option value="PICKUP TRUCK - SMALL">Pickup Truck - Small</option>
+                <option value="PICKUP TRUCK - STANDARD">Pickup Truck - Standard</option>
+              </optgroup>
+              <optgroup label="Vans & Wagons">
+                <option value="MINIVAN">Minivan</option>
+                <option value="VAN - PASSENGER">Van - Passenger</option>
+                <option value="VAN - CARGO">Van - Cargo</option>
+                <option value="STATION WAGON - SMALL">Station Wagon - Small</option>
+                <option value="STATION WAGON - MID-SIZE">Station Wagon - Mid-size</option>
+              </optgroup>
+              <optgroup label="Others">
+                <option value="SPECIAL PURPOSE VEHICLE">Special Purpose Vehicle</option>
+              </optgroup>
+            </select>
+          </label>
+          <label>Fuel Type:
+            <select name="s1_feature7" required class="styled-select">
+              <option value="">-- Select Fuel Type --</option>
+              <option value="X">Regular Gasoline</option>
+              <option value="Z">Premium Gasoline</option>
+              <option value="D">Diesel</option>
+              <option value="E">Ethanol</option>
+              <option value="N">Natural Gas</option>
+            </select>
+          </label>
+          <label>Transmission:
+            <select name="s1_feature8" required class="styled-select">
+              <option value="">-- Select Transmission --</option>
+              <optgroup label="Automatic (A)">
+                <option value="A4">A4 - Auto 4-spd</option>
+                <option value="A5">A5 - Auto 5-spd</option>
+                <option value="A6">A6 - Auto 6-spd</option>
+                <option value="A7">A7 - Auto 7-spd</option>
+                <option value="A8">A8 - Auto 8-spd</option>
+                <option value="A9">A9 - Auto 9-spd</option>
+                <option value="A10">A10 - Auto 10-spd</option>
+              </optgroup>
+              <optgroup label="Automatic Select Shift (AS)">
+                <option value="AS4">AS4 - Auto Select 4-spd</option>
+                <option value="AS5">AS5 - Auto Select 5-spd</option>
+                <option value="AS6">AS6 - Auto Select 6-spd</option>
+                <option value="AS7">AS7 - Auto Select 7-spd</option>
+                <option value="AS8">AS8 - Auto Select 8-spd</option>
+                <option value="AS9">AS9 - Auto Select 9-spd</option>
+                <option value="AS10">AS10 - Auto Select 10-spd</option>
+              </optgroup>
+              <optgroup label="Manual (M)">
+                <option value="M5">M5 - Manual 5-spd</option>
+                <option value="M6">M6 - Manual 6-spd</option>
+                <option value="M7">M7 - Manual 7-spd</option>
+              </optgroup>
+              <optgroup label="Automated Manual (AM)">
+                <option value="AM5">AM5 - Automated Manual 5-spd</option>
+                <option value="AM6">AM6 - Automated Manual 6-spd</option>
+                <option value="AM7">AM7 - Automated Manual 7-spd</option>
+                <option value="AM8">AM8 - Automated Manual 8-spd</option>
+                <option value="AM9">AM9 - Automated Manual 9-spd</option>
+              </optgroup>
+              <optgroup label="Continuously Variable (AV)">
+                <option value="AV">AV - CVT</option>
+                <option value="AV6">AV6 - CVT 6-spd</option>
+                <option value="AV7">AV7 - CVT 7-spd</option>
+                <option value="AV8">AV8 - CVT 8-spd</option>
+                <option value="AV10">AV10 - CVT 10-spd</option>
+              </optgroup>
+            </select>
+          </label>
+        </div>
+
+        <!-- Scenario 2 -->
+        <div class="scenario">
+          <h3>Scenario 2</h3>
+          <label>Engine Size (L): <input type="number" name="s2_feature1" step="any" required></label>
+          <label>No. of Cylinders: <input type="number" name="s2_feature2" step="any" required></label>
+          <label>Fuel Consumption City (L/100 km): <input type="number" name="s2_feature3" step="any" required></label>
+          <label>Fuel Consumption Hwy (L/100 km): <input type="number" name="s2_feature4" step="any" required></label>
+          <label>Is Hybrid:
+            <select name="s2_feature5" required class="styled-select">
+              <option value="">-- Select --</option>
+              <option value="0">0 - Not Hybrid</option>
+              <option value="1">1 - Hybrid</option>
+            </select>
+          </label>
+          <label>Vehicle Class:
+            <select name="s2_feature6" required class="styled-select">
+              <option value="">-- Select Vehicle Class --</option>
+              <optgroup label="Cars">
+                <option value="MINICOMPACT">Minicompact</option>
+                <option value="SUBCOMPACT">Subcompact</option>
+                <option value="COMPACT">Compact</option>
+                <option value="MID-SIZE">Mid-size</option>
+                <option value="FULL-SIZE">Full-size</option>
+                <option value="TWO-SEATER">Two-seater</option>
+              </optgroup>
+              <optgroup label="SUVs">
+                <option value="SUV - SMALL">SUV - Small</option>
+                <option value="SUV - STANDARD">SUV - Standard</option>
+              </optgroup>
+              <optgroup label="Trucks">
+                <option value="PICKUP TRUCK - SMALL">Pickup Truck - Small</option>
+                <option value="PICKUP TRUCK - STANDARD">Pickup Truck - Standard</option>
+              </optgroup>
+              <optgroup label="Vans & Wagons">
+                <option value="MINIVAN">Minivan</option>
+                <option value="VAN - PASSENGER">Van - Passenger</option>
+                <option value="VAN - CARGO">Van - Cargo</option>
+                <option value="STATION WAGON - SMALL">Station Wagon - Small</option>
+                <option value="STATION WAGON - MID-SIZE">Station Wagon - Mid-size</option>
+              </optgroup>
+              <optgroup label="Others">
+                <option value="SPECIAL PURPOSE VEHICLE">Special Purpose Vehicle</option>
+              </optgroup>
+            </select>
+          </label>
+          <label>Fuel Type:
+            <select name="s2_feature7" required class="styled-select">
+              <option value="">-- Select Fuel Type --</option>
+              <option value="X">Regular Gasoline</option>
+              <option value="Z">Premium Gasoline</option>
+              <option value="D">Diesel</option>
+              <option value="E">Ethanol</option>
+              <option value="N">Natural Gas</option>
+            </select>
+          </label>
+          <label>Transmission:
+            <select name="s2_feature8" required class="styled-select">
+              <option value="">-- Select Transmission --</option>
+              <optgroup label="Automatic (A)">
+                <option value="A4">A4 - Auto 4-spd</option>
+                <option value="A5">A5 - Auto 5-spd</option>
+                <option value="A6">A6 - Auto 6-spd</option>
+                <option value="A7">A7 - Auto 7-spd</option>
+                <option value="A8">A8 - Auto 8-spd</option>
+                <option value="A9">A9 - Auto 9-spd</option>
+                <option value="A10">A10 - Auto 10-spd</option>
+              </optgroup>
+              <optgroup label="Automatic Select Shift (AS)">
+                <option value="AS4">AS4 - Auto Select 4-spd</option>
+                <option value="AS5">AS5 - Auto Select 5-spd</option>
+                <option value="AS6">AS6 - Auto Select 6-spd</option>
+                <option value="AS7">AS7 - Auto Select 7-spd</option>
+                <option value="AS8">AS8 - Auto Select 8-spd</option>
+                <option value="AS9">AS9 - Auto Select 9-spd</option>
+                <option value="AS10">AS10 - Auto Select 10-spd</option>
+              </optgroup>
+              <optgroup label="Manual (M)">
+                <option value="M5">M5 - Manual 5-spd</option>
+                <option value="M6">M6 - Manual 6-spd</option>
+                <option value="M7">M7 - Manual 7-spd</option>
+              </optgroup>
+              <optgroup label="Automated Manual (AM)">
+                <option value="AM5">AM5 - Automated Manual 5-spd</option>
+                <option value="AM6">AM6 - Automated Manual 6-spd</option>
+                <option value="AM7">AM7 - Automated Manual 7-spd</option>
+                <option value="AM8">AM8 - Automated Manual 8-spd</option>
+                <option value="AM9">AM9 - Automated Manual 9-spd</option>
+              </optgroup>
+              <optgroup label="Continuously Variable (AV)">
+                <option value="AV">AV - CVT</option>
+                <option value="AV6">AV6 - CVT 6-spd</option>
+                <option value="AV7">AV7 - CVT 7-spd</option>
+                <option value="AV8">AV8 - CVT 8-spd</option>
+                <option value="AV10">AV10 - CVT 10-spd</option>
+              </optgroup>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="btn" type="submit">Compare</button>
+        <a onclick="history.back()" class="nav-btn">🔙 Back</a>
+      </div>
+    </form>
+
+    <!-- Results -->
+    <div class="card" id="resultCard">
+      <div id="result"></div>
+      <div class="highlight" id="differenceHighlight"></div>
+    </div>
+
+    <div class="card">
+      <canvas id="barChart" width="400" height="200"></canvas>
+    </div>
+
+  </main>
+
+  <footer>
+    © 2025 Carbon Evaluator | All rights reserved.
+  </footer>
+
+  <script>
+    let chartInstance = null;
+    function getEcoScore(emission) {
+      if (emission < 150) return '🌱🌱🌱🌱🌱 Excellent';
+      if (emission < 180) return '🌱🌱🌱🌱 Good';
+      if (emission < 210) return '🌱🌱🌱 Fair';
+      if (emission < 240) return '🌱🌱 Poor';
+      return '🌱 Very Poor';
+    }
+
+    document.getElementById("compareForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const form = e.target;
+
+      const features1 = {
+        "Engine Size(L)": parseFloat(form.s1_feature1.value),
+        "Cylinders": parseInt(form.s1_feature2.value),
+        "Fuel Consumption City (L/100 km)": parseFloat(form.s1_feature3.value),
+        "Fuel Consumption Hwy (L/100 km)": parseFloat(form.s1_feature4.value),
+        "Is_Hybrid": parseInt(form.s1_feature5.value),
+        "Vehicle Class": form.s1_feature6.value,
+        "Fuel Type": form.s1_feature7.value,
+        "Transmission": form.s1_feature8.value
+      };
+
+      const features2 = {
+        "Engine Size(L)": parseFloat(form.s2_feature1.value),
+        "Cylinders": parseInt(form.s2_feature2.value),
+        "Fuel Consumption City (L/100 km)": parseFloat(form.s2_feature3.value),
+        "Fuel Consumption Hwy (L/100 km)": parseFloat(form.s2_feature4.value),
+        "Is_Hybrid": parseInt(form.s2_feature5.value),
+        "Vehicle Class": form.s2_feature6.value,
+        "Fuel Type": form.s2_feature7.value,
+        "Transmission": form.s2_feature8.value
+      };
+
+      const token = localStorage.getItem("access_token");
+
+      const response = await fetch("/ml/compare", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({ features1, features2 })
+      });
+
+      const data = await response.json();
+
+      if (data.error) {
+        document.getElementById("result").innerText = "Error: " + data.error;
+      } else {
+        const eco1 = getEcoScore(data.scenario_1_prediction);
+        const eco2 = getEcoScore(data.scenario_2_prediction);
+
+        document.getElementById("result").innerText =
+          `Scenario 1 Prediction: ${data.scenario_1_prediction} g/km (${eco1})\n` +
+          `Scenario 2 Prediction: ${data.scenario_2_prediction} g/km (${eco2})\n`;
+
+        const better = data.scenario_1_prediction < data.scenario_2_prediction ? "Scenario 1" : "Scenario 2";
+        document.getElementById("differenceHighlight").innerText =
+          `${better} is more eco-friendly by ${data.difference} g/km of CO₂`;
+
+        // Chart
+        const ctx = document.getElementById('barChart').getContext('2d');
+        if (chartInstance) chartInstance.destroy();
+        chartInstance = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['Scenario 1', 'Scenario 2'],
+            datasets: [{
+              label: 'Predicted CO₂ Emissions (g/km)',
+              data: [data.scenario_1_prediction, data.scenario_2_prediction],
+              backgroundColor: ['#4caf50', '#f44336']
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true } }
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

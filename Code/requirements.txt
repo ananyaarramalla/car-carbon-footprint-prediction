@@ -1,0 +1,9 @@
+flask
+numpy
+scikit-learn
+joblib
+Flask
+Flask-CORS
+Flask-JWT-Extended
+Flask-SQLAlchemy
+Werkzeug

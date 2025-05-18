@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Carbon Footprint Evaluator</h1>
+        <p>Drive Smart. Emit Less. Live Green.</p>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Login</h2>
+            <form method="POST" action="{{ url_for('auth.login') }}">
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                {% if error %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                {% endif %}
+                <button type="submit" class="btn btn-primary">Login</button>
+                <p class="p">
+                    Don't have an account? <a href="{{ url_for('auth.register') }}">Register</a> &nbsp; | &nbsp;
+                    <a href="{{ url_for('home') }}">← Back to Home</a>
+                </p>                
+            </form>
+        </div>
+    </main>
+    <footer>
+        © 2025 Carbon Evaluator | All rights reserved.
+    </footer>
+</body>
+</html>
